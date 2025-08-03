@@ -1,0 +1,28 @@
+<div class="card">
+  <p-menubar>
+      <ng-template pTemplate="start">
+          <img src="assets/img/logo.jpg" height="100" width="100" class="mr-2"  (click)="sidebarVisible = true"/>
+      </ng-template>
+      <ng-template pTemplate="end">
+        <p-button label="Cerrar sesión" styleClass="p-button-outlined p-button-secondary" icon="pi pi-times" (click)="logout()"></p-button>
+    </ng-template>
+  </p-menubar>
+</div>
+
+<div class="card flex justify-content-center">
+  <p-sidebar [(visible)]="sidebarVisible">
+    <ng-template pTemplate="header">
+      CEA Armenia, Quindío
+    </ng-template>
+    <ng-template pTemplate="content">
+      <ul class="list-none m-0 p-0">
+        <li class="mb-2">
+          <a routerLink="/createQuestions" class="text-color">Ingresar preguntas</a>
+        </li>
+        <li>
+          <a routerLink="/actividad" class="text-color">Actividad</a>
+        </li>
+      </ul>
+    </ng-template>
+  </p-sidebar>
+</div>

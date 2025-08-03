@@ -1,0 +1,181 @@
+<app-navbar></app-navbar>
+
+
+<p-breadcrumb class="max-w-full m-5" [model]="items" [home]="home" />
+
+<div *ngIf="showForm">
+  <form
+    [formGroup]="preguntasForm"
+    class="p-fluid"
+    [ngClass]="{
+      'ng-invalid': preguntasForm.invalid,
+      'ng-dirty': preguntasForm.dirty
+    }"
+  >
+    <div class="m-4 surface-card p-4 border-round shadow-2">
+      <h2 class="mb-4">Crear Pregunta</h2>
+
+      <div class="formgrid grid">
+        <!-- Enunciado -->
+        <div class="field col-12">
+          <span class="p-float-label">
+            <input
+              formControlName="enunciado"
+              pInputText
+              id="Enunciado"
+              class="w-full"
+            />
+            <label for="Enunciado">Enunciado*</label>
+          </span>
+        </div>
+
+        <!-- Opciones -->
+        <div class="formgrid grid col-12" formArrayName="opciones">
+          <div
+            class="field col-12 md:col-6"
+            *ngFor="let opcion of opciones.controls; let i = index"
+          >
+            <span class="p-float-label">
+              <input
+                id="opcion{{ i }}"
+                pInputText
+                [formControlName]="i"
+                class="w-full"
+              />
+              <label for="opcion{{ i }}">Opción {{ i + 1 }} *</label>
+            </span>
+          </div>
+        </div>
+        <!-- Respuesta correcta -->
+         <div class="field col-12 md:col-6">
+  <label for="respuestaCorrecta">Respuesta Correcta</label>
+  <select
+    id="respuestaCorrecta"
+    formControlName="respuestaCorrecta"
+    class="w-full p-inputtext"
+    [ngClass]="{
+      'p-invalid': preguntasForm.get('respuestaCorrecta')?.invalid &&
+                   preguntasForm.get('respuestaCorrecta')?.touched
+    }"
+  >
+    <option *ngFor="let opcion of opciones.controls" [value]="opcion.value">
+      {{ opcion.value }}
+    </option>
+  </select>
+
+  <small
+    *ngIf="preguntasForm.get('respuestaCorrecta')?.invalid &&
+           preguntasForm.get('respuestaCorrecta')?.touched"
+    class="p-error"
+  >
+    Debes seleccionar una respuesta correcta.
+  </small>
+</div>
+
+        <!-- Botones -->
+        <div class="col-12 mt-4 flex justify-content-end gap-2">
+          <p-button
+            label="Cancelar"
+            styleClass="my-secondary-button"
+            icon="pi pi-times"
+            (onClick)="showTable()"
+          ></p-button>
+          <p-button
+            label="Limpiar"
+            styleClass="my-secondary-button"
+            icon="pi pi-eraser"
+            (onClick)="cleanForm()"
+          ></p-button>
+          <p-button
+            *ngIf="!editInfoQuestion"
+            label="Guardar"
+            styleClass="my-default-button"
+            icon="pi pi-save"
+            (onClick)="saveQuestion()"
+            [disabled]="savingQuestion"
+          ></p-button>
+          <p-button
+            *ngIf="editInfoQuestion"
+            label="Editar"
+            styleClass="my-default-button"
+            icon="pi pi-file-edit"
+            (onClick)="saveQuestion()"
+            [disabled]="savingQuestion"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div style="display: flex; justify-content: flex-end; gap: 10px; width: 100%;" class="mt-5">
+    <p-button label="Crear" styleClass="my-default-button" icon="pi pi-plus" (click)="enableForm()"
+        *ngIf="!showForm"></p-button>
+</div>
+
+  <div class="card mt-2" *ngIf="!showForm">
+                <h2>Listado de preguntas</h2>
+                <p-table 
+                #dt 
+                [value]="questions" 
+                selectionMode="single" 
+                [(selection)]="selectedEvent"
+                (onRowSelect)="selectItem($event)"
+                [paginator]="true" 
+                [rows]="3"
+             >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            Enunciado
+                            <input 
+                                pInputText 
+                                type="text" 
+                                (input)="onFilter($event, 'enunciado')" 
+                                placeholder="Buscar por enunciado" 
+                                class="w-full"
+                            >
+                        </th>
+                        <th>
+                            Respuesta Correcta
+                            <input 
+                                pInputText 
+                                type="text" 
+                                (input)="onFilter($event, 'respuestaCorrecta')" 
+                                placeholder="Buscar por respuesta correcta" 
+                                class="w-full"
+                            >
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-event>
+                    <tr [pSelectableRow]="event">
+                        <td>{{event.enunciado}}</td>
+                        <td>{{event.respuestaCorrecta}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #999; font-style: italic;">
+                            No hay información disponible
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <div class="flex align-items-center justify-content-center">
+                        Hay {{questions ? questions.length : 0 }} preguntas creadas
+                    </div>
+                </ng-template>
+             </p-table>
+             
+                <div class="field col-6" style="display: flex; justify-content: flex-end; gap: 10px; width: 100%;">
+                    <p-button label="Eliminar" pRipple styleClass="p-button-danger" icon="pi pi-trash" [disabled]="disableButtons" (click)="deleteEvent()"></p-button>
+                    <p-button label="Editar"  styleClass="my-default-button" icon="pi pi-file-edit" [disabled]="disableButtons" (click)="editQuestion()"></p-button>
+                </div>
+            
+            </div>
+
+ <p-toast></p-toast>
+ <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

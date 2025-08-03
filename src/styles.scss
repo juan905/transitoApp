@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+.my-default-button {
+  background-color: #1b294e;
+  color: #fff;
+  border: none;
+  border-color:#34477c ;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #34477c;
+    color: white;
+  }
+}
+
+.my-secondary-button {
+  background-color: white;
+  color: #34477c;
+  border: 1px solid #727272;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: none; // Sin animaciones
+
+  // Sin estilos de hover
+  &:hover {
+    background-color: white;
+    color: #34477c;
+    border: 1px solid #727272;
+  }
+}
+
+input.ng-invalid.ng-touched,
+select.p-invalid {
+  border: 1px solid #e24c4c !important;
+  box-shadow: 0 0 0 0.2rem rgba(226, 76, 76, 0.2);
+}
