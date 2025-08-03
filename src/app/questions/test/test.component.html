@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+
+
+<p-breadcrumb class="max-w-full m-5" [model]="items" [home]="home" />
+
+<div style="display: flex; justify-content: flex-end; gap: 10px; width: 100%;" class="mt-5">
+    <p-button label="Generar Preguntas" styleClass="my-default-button" (onClick)="generateQuestions()"  icon="pi pi-file"></p-button>
+</div>
+<br>
+<br>
+<form [formGroup]="quizForm" *ngIf="preguntasSeleccionadas.length > 0">
+  <div
+    *ngFor="let pregunta of preguntasSeleccionadas; let i = index"
+    class="mb-4 p-3 border-round surface-100 shadow-2"
+  >
+    <p><strong>{{ i + 1 }}. {{ pregunta.enunciado }}</strong></p>
+
+    <div
+      *ngFor="let opcion of pregunta.opciones"
+      class="flex align-items-center mb-2"
+    >
+    <p-radioButton
+  [inputId]="'pregunta_' + i + '_opcion_' + opcion"
+  [name]="'pregunta_' + i"
+  [value]="opcion"
+  [label]="opcion"
+  [formControl]="getRespuestaSeleccionadaControl(i)"
+  [disabled]="mostrarResultados"
+  [ngClass]="{
+    'p-invalid': mostrarResultados && preguntasFormArray.at(i).invalid,
+    'bg-green-100': mostrarResultados &&
+      preguntasFormArray.at(i).value.respuestaSeleccionada === pregunta.respuestaCorrecta &&
+      opcion === pregunta.respuestaCorrecta,
+    'bg-red-100': mostrarResultados &&
+      preguntasFormArray.at(i).value.respuestaSeleccionada === opcion &&
+      opcion !== pregunta.respuestaCorrecta
+  }"
+/>
+    </div>
+
+    <div *ngIf="mostrarResultados && preguntasFormArray.at(i).value.respuestaSeleccionada !== pregunta.respuestaCorrecta" class="text-red-600">
+      Respuesta correcta: <strong>{{ pregunta.respuestaCorrecta }}</strong>
+    </div>
+  </div>
+
+
+  <div style="display: flex; justify-content: flex-end; gap: 10px; width: 100%;" class="mt-5">
+    
+      <p-button
+        styleClass="my-default-button"
+        label="Enviar Respuestas"
+        (onClick)="enviarRespuestas()"
+        class="mt-3"
+        [disabled]="mostrarResultados"
+        icon="pi pi-send"
+      ></p-button>
+</div>
+
+</form>
+<p-toast></p-toast>
+ <p-dialog header="Advertencia" [(visible)]="visible" [style]="{width: '50vw'}">
+        <p>No hay preguntas creadas actualmente</p>
+        <p>Por favor dirijase a la opcion de ingresar preguntas <span>click en el enlace de abajo</span></p>
+        <h4 class="pointer" routerLink="/createQuestions">Ingresar preguntas</h4>
+    </p-dialog>

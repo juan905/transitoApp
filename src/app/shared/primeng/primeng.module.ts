@@ -12,8 +12,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MenubarModule } from 'primeng/menubar';
 import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
-
-
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -33,7 +33,9 @@ import { PanelMenuModule } from 'primeng/panelmenu';
    DropdownModule,
    MenubarModule,
    SidebarModule,
-   PanelMenuModule
+   PanelMenuModule,
+   RadioButtonModule,
+   DialogModule
   ]
 })
 export class PrimengModule { }

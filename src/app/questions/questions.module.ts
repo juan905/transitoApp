@@ -6,11 +6,13 @@ import { EvaluationComponent } from './evaluation/evaluation.component';
 import { SharedModule } from '../shared/shared.module';
 import { PrimengModule } from '../shared/primeng/primeng.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
   declarations: [
-    EvaluationComponent
+    EvaluationComponent,
+    TestComponent
   ],
   imports: [
     CommonModule,

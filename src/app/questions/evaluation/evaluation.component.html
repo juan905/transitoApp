@@ -17,16 +17,14 @@
 
       <div class="formgrid grid">
         <!-- Enunciado -->
+        <label for="Enunciado">Enunciado*</label>
         <div class="field col-12">
-          <span class="p-float-label">
             <input
               formControlName="enunciado"
               pInputText
               id="Enunciado"
               class="w-full"
             />
-            <label for="Enunciado">Enunciado*</label>
-          </span>
         </div>
 
         <!-- Opciones -->
@@ -35,15 +33,14 @@
             class="field col-12 md:col-6"
             *ngFor="let opcion of opciones.controls; let i = index"
           >
-            <span class="p-float-label">
+          <label for="opcion{{ i }}">Opción {{ i + 1 }} *</label>
               <input
                 id="opcion{{ i }}"
                 pInputText
                 [formControlName]="i"
                 class="w-full"
               />
-              <label for="opcion{{ i }}">Opción {{ i + 1 }} *</label>
-            </span>
+          
           </div>
         </div>
         <!-- Respuesta correcta -->

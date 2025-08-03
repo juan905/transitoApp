@@ -191,12 +191,14 @@ selectItem(event:any){
     rejectButtonStyleClass: 'my-secondary-button',
     accept: () => {
       if (this.infoEventSelected) {
-         this.fireStoreService.deleteQuestion(this.infoEventSelected.id)
+         this.fireStoreService.deleteQuestion(this.infoEventSelected)
       .then(() => {
        this.messageService.add({
       severity: 'success',
       summary: 'Pregunta eliminada correctamente',
     });
+       this.showTable();
+      this.getAllQuestions();
       })
       .catch((err) => {
         this.messageService.add({
@@ -224,15 +226,8 @@ selectItem(event:any){
  getAllQuestions(){
   this.fireStoreService.getQuestions().subscribe(data => {
     this.questions = data
-      console.log("DATA", data)
     });
  }
 
- get opcionesDropdown() {
-  return this.opciones.controls.map(ctrl => ({
-    label: ctrl.value,
-    value: ctrl.value
-  }));
-}
 
 }

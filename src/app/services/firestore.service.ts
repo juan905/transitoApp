@@ -29,5 +29,4 @@ export class FirestoreService {
   return updateDoc(preguntaDocRef, data);
 }
 
-
 }
