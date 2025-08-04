@@ -15,7 +15,7 @@ export class NavbarComponent {
   }
   
   logout(){
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.router.navigateByUrl('/inicioSesion')
 
   }

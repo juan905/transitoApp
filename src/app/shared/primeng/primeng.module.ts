@@ -14,6 +14,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -35,7 +36,9 @@ import { DialogModule } from 'primeng/dialog';
    SidebarModule,
    PanelMenuModule,
    RadioButtonModule,
-   DialogModule
+   DialogModule,
+   CardModule
+   
   ]
 })
 export class PrimengModule { }

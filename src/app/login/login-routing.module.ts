@@ -16,7 +16,7 @@ const routes: Routes = [
             component: SignUpComponent
           },
           {
-            path: '**', redirectTo: 'inicioSesion'
+            path: '**', redirectTo: 'login'
           }
     
         ]
