@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class SignInComponent {
   constructor(
     private fb: FormBuilder,
     private authService: FirestoreService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -23,14 +25,19 @@ export class SignInComponent {
   }
 
   login() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched()
+    }
   const { email, password } = this.loginForm.value;
-  console.log('Intentando loguear con:', email, password);
   this.authService.login(email, password)
   .then(userCredential => {
     localStorage.setItem('user', JSON.stringify(userCredential.user));
     this.router.navigate(['/createQuestions']);
   })
-  .catch(err => alert('Error: ' + err.message));
+  .catch(err => this.messageService.add({
+    severity: 'error',
+    summary: 'Por favor verifique la información'
+  }));
 }
 
 }

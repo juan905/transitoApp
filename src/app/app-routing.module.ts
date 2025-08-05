@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren:()=> import('./questions/questions.module').then(m => m.QuestionsModule),
     canActivate: [AuthGuard]
   },
-   { path: '', redirectTo: '/inicioSesion', pathMatch: 'full' },
+   { path: '', redirectTo: '/inicioSesion/login', pathMatch: 'full' },
 ];
 
 @NgModule({

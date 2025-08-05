@@ -63,3 +63,7 @@
         <p>Por favor dirijase a la opcion de ingresar preguntas <span>click en el enlace de abajo</span></p>
         <h4 class="pointer" routerLink="/createQuestions">Ingresar preguntas</h4>
     </p-dialog>
+
+<p-dialog header="Advertencia" [(visible)]="alertQuestions" [style]="{width: '50vw'}">
+        <p>Acertaste <strong>{{ validQuestions?.length || 0 }}</strong> de <strong>{{ questionsTotal }}</strong> preguntas</p>
+</p-dialog>

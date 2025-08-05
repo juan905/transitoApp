@@ -19,6 +19,8 @@ export class TestComponent {
   mostrarResultados = false;
   questionsTotal: number = 0
   visible: boolean = false;
+  alertQuestions = false;
+  validQuestions: any[] = [];
 
   constructor(private fb: FormBuilder, private fireStoreService: FirestoreService,  private messageService: MessageService){
     this.quizForm = this.fb.group({
@@ -91,14 +93,10 @@ generateQuestions() {
 
     this.mostrarResultados = true;
 
-    const correctas = this.preguntasSeleccionadas.filter((pregunta, index) =>
+     this.validQuestions = this.preguntasSeleccionadas.filter((pregunta, index) =>
       pregunta.respuestaCorrecta === this.preguntasFormArray.at(index).value.respuestaSeleccionada
     );
-
-    this.messageService.add({
-      severity: 'success',
-      summary: `Acertaste ${correctas.length} de ${this.questionsTotal} preguntas`,
-    });
+    this.showAlertQuestions();
   }
 
   getRespuestaSeleccionadaControl(i: number) {
@@ -108,6 +106,10 @@ generateQuestions() {
  showDialog() {
         this.visible = true;
     }
+
+  showAlertQuestions(){
+    this.alertQuestions = true;
+  }
 
 
 }
