@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth,createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 
@@ -16,7 +17,8 @@ export class SignUpComponent {
   constructor(
     private fb: FormBuilder,
     private auth: Auth,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,8 @@ export class SignUpComponent {
           detail: error.message,
         });
       });
+
+       this.router.navigate(['/inicioSesion/login']);
   }
 
 }

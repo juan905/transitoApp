@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
 
   sidebarVisible = false;
+  userEmail = '';
 
   constructor(private router: Router){
-    this.sidebarVisible = true
+    this.sidebarVisible = true;
+    this.getInformationFromUser();
   }
   
   logout(){
@@ -19,5 +21,14 @@ export class NavbarComponent {
     this.router.navigateByUrl('/inicioSesion')
 
   }
+
+
+   getInformationFromUser(){
+  const userInformation = localStorage.getItem('user')!;
+  const data = JSON.parse(userInformation);
+  this.userEmail = data.email
+  console.log("useremial", this.userEmail);
+  
+ }
 
 }

@@ -32,7 +32,7 @@ export class SignInComponent {
   this.authService.login(email, password)
   .then(userCredential => {
     localStorage.setItem('user', JSON.stringify(userCredential.user));
-    this.router.navigate(['/createQuestions']);
+    this.router.navigate(['/createQuestions/examen']);
   })
   .catch(err => this.messageService.add({
     severity: 'error',

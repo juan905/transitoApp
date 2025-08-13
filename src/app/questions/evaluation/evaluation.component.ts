@@ -37,6 +37,7 @@ export class EvaluationComponent {
 
   savingQuestion = false;
 
+  
    constructor(private fb: FormBuilder, 
       private firestore: Firestore,
       private messageService: MessageService,
@@ -170,8 +171,6 @@ onFilter(event: Event, field: string) {
 }
 
 selectItem(event:any){
-  console.log("EVENT", event);
-  
   this.infoEventSelectedEdit = event.data;
   this.infoEventSelected = event.data.id; 
   if (event) {
